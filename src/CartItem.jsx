@@ -5,31 +5,56 @@ import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    return cart.reduce((tot, item) => {
+      // Convert item.cost from a string (e.g., "$15") to a number (e.g., 15)
+      const cost = parseFloat(item.cost.replace('$', ''));
+      return tot + item.quantity * cost;
+    }, 0);
   };
 
   const handleContinueShopping = (e) => {
-   
+    onContinueShopping(e);
+  };
+
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
   };
 
 
 
   const handleIncrement = (item) => {
+    const updatedItem = { ...item, quantity: item.quantity + 1 };
+    dispatch(updateQuantity(updatedItem))
   };
 
   const handleDecrement = (item) => {
-   
+    if(item.quantity > 1){
+      const updatedItem = { ...item, quantity: item.quantity - 1 }; 
+    dispatch(updateQuantity(updatedItem))
+    }
+    else{
+      dispatch(removeItem(item))
+    }
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item))
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+  // Find the specific item in the cart
+  const foundItem = cart.find(cartItem => cartItem.name === item.name);
+  // If the item is found, calculate the total cost
+  if (foundItem) {
+    return foundItem.quantity * parseFloat(foundItem.cost.replace('$', ''));
+  }
+  // If the item is not found, return 0
+  return 0;
   };
 
   return (

@@ -160,6 +160,18 @@ body {
     width: 650px;
     font-size: 19px;
 }
+.cart-quantity-badge {
+    position: relative;
+    top: -10px; /* Adjust this value to position the badge vertically */
+    right: -10px; /* Adjust this value to position the badge horizontally */
+    background-color: red; /* Badge background color */
+    color: white; /* Badge text color */
+    border-radius: 50%; /* Make the badge circular */
+    padding: 5px 10px; /* Add padding for better appearance */
+    font-size: 14px; /* Adjust font size */
+    min-width: 20px; /* Ensure the badge has a minimum width */
+    text-align: center; /* Center the text inside the badge */
+  }
 .cart{
     color: white;
     display: flex;
